@@ -1,6 +1,50 @@
-package UC_4;
+package uc7;
 public class OOPSBannerApp {
+
+    public static class CharacterPatternMap {
+
+        private final char character;
+        private final String[] pattern;
+
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        public char getCharacter() {
+            return character;
+        }
+
+        public String[] getPattern() {
+            return pattern;
+        }
+    }
+
+    public static String[] getCharacterPattern(char ch, CharacterPatternMap[] patterns) {
+        for (CharacterPatternMap patternObj : patterns) {
+            if (patternObj.getCharacter() == ch) {
+                return patternObj.getPattern();
+            }
+        }
+        return new String[7];
+    }
+
+    public static void displayBanner(String word, CharacterPatternMap[] patterns) {
+
+        for (int row = 0; row < 7; row++) {
+            StringBuilder line = new StringBuilder();
+
+            for (int i = 0; i < word.length(); i++) {
+                String[] pattern = getCharacterPattern(word.charAt(i), patterns);
+                line.append(pattern[row]).append("  ");
+            }
+
+            System.out.println(line);
+        }
+    }
+
     public static void main(String[] args) {
+
         String[] O = {
                 " ***** ",
                 "*     *",
@@ -10,30 +54,33 @@ public class OOPSBannerApp {
                 "*     *",
                 " ***** "
         };
+
         String[] P = {
-                " ******",
+                " ***** ",
                 "*     *",
                 "*     *",
-                " ******",
+                " ***** ",
                 "*      ",
                 "*      ",
                 "*      "
         };
+
         String[] S = {
-                " ******",
+                " ***** ",
                 "*      ",
                 "*      ",
                 " ***** ",
                 "      *",
                 "      *",
-                " ******"
+                " ***** "
         };
-        String[] lines = new String[7];
-        for (int i = 0; i < 7; i++) {
-            lines[i] = String.join("   ", O[i], O[i], P[i], S[i]);
-        }
-        for (String line : lines) {
-            System.out.println(line);
-        }
+
+        CharacterPatternMap[] patterns = {
+                new CharacterPatternMap('O', O),
+                new CharacterPatternMap('P', P),
+                new CharacterPatternMap('S', S)
+        };
+
+        displayBanner("OOPS", patterns);
     }
 }
